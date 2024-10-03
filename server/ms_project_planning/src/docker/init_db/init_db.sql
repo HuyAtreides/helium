@@ -1,0 +1,2 @@
+CREATE USER ms_project_planning WITH PASSWORD 'ms_project_planning_password';
+CREATE SCHEMA project_planning AUTHORIZATION ms_project_planning;
