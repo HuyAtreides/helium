@@ -17,11 +17,11 @@ version = '0.0.1-SNAPSHOT'
 
 flyway {
     url = 'jdbc:postgresql://localhost:5430/helium'
-    user = 'ms_project_planning'
+    user = 'ms_project_management'
     locations = ['classpath:/db.migration']
     driver = 'org.postgresql.Driver'
-    schemas = ['project_planning']
-    password = 'ms_project_planning_password'
+    schemas = ['project_management']
+    password = 'ms_project_management_password'
 }
 
 apply from: rootProject.file('shared-build/shared.gradle')

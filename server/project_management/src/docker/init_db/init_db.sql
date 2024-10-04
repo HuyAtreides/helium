@@ -1,0 +1,2 @@
+CREATE USER ms_project_management WITH PASSWORD 'ms_project_management_password';
+CREATE SCHEMA project_management AUTHORIZATION ms_project_management;
