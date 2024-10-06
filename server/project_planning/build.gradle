@@ -24,4 +24,4 @@ flyway {
     password = 'ms_project_planning_password'
 }
 
-apply from: rootProject.file('shared-build/shared.gradle')
+apply from: rootProject.file('shared_build/shared.gradle')

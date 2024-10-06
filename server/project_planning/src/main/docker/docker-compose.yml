@@ -112,7 +112,7 @@ services:
       --bootstrap-server broker:29092 \
       --partitions 3 \
       --replication-factor 1 \
-      --topic project
+      --topic app.helium.project
     "
     networks:
       - default_network

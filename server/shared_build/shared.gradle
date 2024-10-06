@@ -62,7 +62,7 @@ tasks.register("integrationTest", Test) {
     }
 
     filter {
-        includeTestsMatching 'app.helium.projectplanning.test.integration.*'
+        includeTestsMatching 'app.helium.*.test.integration.*'
     }
 }
 
@@ -76,7 +76,7 @@ tasks.register("blackBoxTest", Test) {
     }
 
     filter {
-        includeTestsMatching 'app.helium.projectplanning.test.blackbox.*'
+        includeTestsMatching 'app.helium.*.test.blackbox.*'
     }
 }
 
@@ -90,15 +90,15 @@ tasks.register("unitTest", Test) {
     }
 
     filter {
-        includeTestsMatching 'app.helium.projectplanning.test.unit.*'
+        includeTestsMatching 'app.helium.*.test.unit.*'
     }
 }
 
 dockerCompose {
-    useComposeFiles = ['./src/docker/docker-compose.yml']
+    useComposeFiles = ['src/main/docker/docker-compose.yml']
     environment.put("SERVICES_HOST", "0.0.0.0")
 }
 
 bootRun {
-    args += ["-Dspring.profiles.active=dev"]
+    args += ["--spring.profiles.active=dev"]
 }
