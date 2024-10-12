@@ -1,6 +1,6 @@
 package app.helium.projectmanagement.infra.messaging.producer;
 
-import app.helium.projectmanagement.core.application.MessageProducer;
+import app.helium.projectmanagement.core.application.service.MessageProducer;
 import app.helium.projectmanagement.core.domain.model.Project;
 import app.helium.projectmanagement.infra.messaging.constant.Event;
 import app.helium.projectmanagement.infra.messaging.mapper.KafkaProjectMessageMapper;

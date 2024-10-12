@@ -5,7 +5,7 @@ create table project (
   description text,
   "key" varchar(7) not null,
   project_lead_id uuid,
-  default_assignee uuid,
+  default_assignee_id uuid,
   created_at timestamp default (now() at time zone 'utc'),
   last_updated_at timestamp default (now() at time zone 'utc'),
   last_updated_by_id uuid not null

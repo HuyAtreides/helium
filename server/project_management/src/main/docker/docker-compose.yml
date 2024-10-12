@@ -112,8 +112,6 @@ services:
       --bootstrap-server broker:29092 \
       --partitions 3 \
       --replication-factor 1 \
-      --config confluent.value.schema.validation=true \
-      --config confluent.key.schema.validation=true \
       --topic app.helium.project 
     "
     networks:

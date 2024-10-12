@@ -16,6 +16,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
+import org.hibernate.validator.constraints.URL;
 
 @Entity
 @Builder
@@ -35,16 +36,20 @@ public class Project {
     private UUID id;
 
     @Column(name = "icon_url")
+    @URL(message = "URL is malformed", protocol = "https", host = "media.helium.com")
     @JdbcTypeCode(SqlTypes.VARCHAR)
+    @Getter(AccessLevel.PUBLIC)
     private String iconURL;
 
     @Column(name = "name")
     @NotNull
     @JdbcTypeCode(SqlTypes.VARCHAR)
+    @Getter(AccessLevel.PUBLIC)
     private String name;
 
     @Column(name = "description")
     @JdbcTypeCode(SqlTypes.VARCHAR)
+    @Getter(AccessLevel.PUBLIC)
     private String description;
 
     @Column(name = "project_lead_id")
@@ -66,15 +71,18 @@ public class Project {
     @Column(name = "created_at")
     @JdbcTypeCode(SqlTypes.TIMESTAMP_UTC)
     @NotNull
+    @Getter(AccessLevel.PUBLIC)
     private Instant createdAt;
 
     @Column(name = "last_updated_at")
     @JdbcTypeCode(SqlTypes.TIMESTAMP_UTC)
     @NotNull
+    @Getter(AccessLevel.PUBLIC)
     private Instant lastUpdatedAt;
 
     @Column(name = "last_updated_by_id")
     @JdbcTypeCode(SqlTypes.UUID)
     @NotNull
+    @Getter(AccessLevel.PUBLIC)
     private UUID lastUpdatedById;
 }
