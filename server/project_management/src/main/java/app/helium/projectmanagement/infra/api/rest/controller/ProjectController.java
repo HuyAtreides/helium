@@ -7,8 +7,10 @@ import app.helium.projectmanagement.infra.api.rest.request.CreateProjectPayload;
 import app.helium.projectmanagement.infra.api.rest.response.ProjectPayload;
 import lombok.RequiredArgsConstructor;
 import org.mapstruct.factory.Mappers;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -18,7 +20,8 @@ public class ProjectController {
     private final ProjectPayloadMapper projectPayloadMapper = Mappers.getMapper(ProjectPayloadMapper.class);
     private final CreateProjectPayloadMapper mapper = Mappers.getMapper(CreateProjectPayloadMapper.class);
 
-    @PostMapping(APIEndPoint.CREATE_PROJECT)
+    @PostMapping(ApiEndPoint.CREATE_PROJECT)
+    @ResponseStatus(HttpStatus.CREATED)
     public ProjectPayload createProject(@RequestBody CreateProjectPayload projectPayload) {
         var project = projectService.createProject(
           mapper.mapToCommand(projectPayload)
