@@ -1,0 +1,72 @@
+{
+  "namespace": "app.helium.projectmanagement.project",
+  "name": "ProjectMessage",
+  "doc": "A project",
+  "type": "record",
+  "fields": [
+    {
+      "name": "metadata",
+      "type": {
+        "type": "record",
+        "name": "Metadata",
+        "fields": [
+          {
+            "type": "string",
+            "name": "time"
+          },
+          {
+            "type": "string",
+            "name": "event"
+          },
+          {
+            "type": "string",
+            "name": "source"
+          },
+          {
+            "type": "string",
+            "name": "subject"
+          },
+          {
+            "type": "string",
+            "name": "producer"
+          },
+          {
+            "type": "string",
+            "name": "id"
+          }
+        ]
+      }
+    },
+    {
+      "name": "data",
+      "type": {
+        "type": "record",
+        "name": "Data",
+        "fields": [
+          {
+            "name": "id",
+            "type": "string"
+          },
+          {
+            "name": "key",
+            "type": "string"
+          },
+          {
+            "name": "project_lead_id",
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          {
+            "name": "default_assignee_id",
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}
