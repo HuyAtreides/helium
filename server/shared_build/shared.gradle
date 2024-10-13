@@ -26,15 +26,6 @@ java {
     }
 }
 
-flyway {
-    url = 'jdbc:postgresql://localhost:5430/helium'
-    user = 'ms_project_planning'
-    locations = ['classpath:/db.migration']
-    driver = 'org.postgresql.Driver'
-    schemas = ['project_planning']
-    password = 'ms_project_planning_password'
-}
-
 dependencies {
     testImplementation 'io.rest-assured:rest-assured:5.5.0'
     testImplementation group: 'org.skyscreamer', name: 'jsonassert', version: '1.5.0'
@@ -71,7 +62,7 @@ tasks.register("integrationTest", Test) {
     }
 
     filter {
-        includeTestsMatching 'app.helium.projectplanning.test.integration.*'
+        includeTestsMatching 'app.helium.*.test.integration.*'
     }
 }
 
@@ -85,7 +76,7 @@ tasks.register("blackBoxTest", Test) {
     }
 
     filter {
-        includeTestsMatching 'app.helium.projectplanning.test.blackbox.*'
+        includeTestsMatching 'app.helium.*.test.blackbox.*'
     }
 }
 
@@ -99,15 +90,15 @@ tasks.register("unitTest", Test) {
     }
 
     filter {
-        includeTestsMatching 'app.helium.projectplanning.test.unit.*'
+        includeTestsMatching 'app.helium.*.test.unit.*'
     }
 }
 
 dockerCompose {
-    useComposeFiles = ['./src/docker/docker-compose.yml']
+    useComposeFiles = ['src/main/docker/docker-compose.yml']
     environment.put("SERVICES_HOST", "0.0.0.0")
 }
 
 bootRun {
-    args += ["-Dspring.profiles.active=dev"]
+    args += ["--spring.profiles.active=dev"]
 }

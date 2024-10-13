@@ -13,16 +13,24 @@ plugins {
     id "com.github.davidmc24.gradle.plugin.avro" version "1.9.1"
 }
 
-group = 'app.helium.projectplanning'
+group = 'app.helium.projectmanagement'
 version = '0.0.1-SNAPSHOT'
 
 flyway {
     url = 'jdbc:postgresql://localhost:5430/helium'
-    user = 'ms_project_planning'
+    user = 'helium_project_management'
     locations = ['classpath:/db.migration']
     driver = 'org.postgresql.Driver'
-    schemas = ['project_planning']
-    password = 'ms_project_planning_password'
+    schemas = ['project_management']
+    password = 'helium_project_management_password'
 }
 
 apply from: rootProject.file('shared_build/shared.gradle')
+
+dependencies {
+    implementation group: 'io.confluent', name: 'kafka-avro-serializer', version: '7.7.0'
+}
+
+avro {
+    createSetters = false
+}

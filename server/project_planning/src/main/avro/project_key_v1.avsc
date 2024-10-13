@@ -1,0 +1,12 @@
+{
+  "namespace": "app.helium.projectmanagement.project",
+  "type": "record",
+  "name": "ProjectId",
+  "doc": "Project Id",
+  "fields": [
+    {
+      "name": "id",
+      "type": "string"
+    }
+  ]
+}

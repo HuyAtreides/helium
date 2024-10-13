@@ -69,4 +69,9 @@ public class ProjectPlanningService {
 
         return newSprint;
     }
+
+    @Transactional
+    public void addNewProject(Project project) {
+        projectRepository.save(project);
+    }
 }

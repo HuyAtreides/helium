@@ -1,0 +1,2 @@
+CREATE USER helium_project_management WITH PASSWORD 'helium_project_management_password';
+CREATE SCHEMA project_management AUTHORIZATION helium_project_management;
