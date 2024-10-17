@@ -44,7 +44,7 @@ public class IssueFactory {
         Instant now = request.getCreatedAt();
 
         return builder
-                .id(UUID.randomUUID())
+                .id(request.getIssueID())
                 .name(request.getIssueName())
                 .summary(request.getSummary())
                 .description(request.getDescription())

@@ -1,5 +1,6 @@
 package app.helium.projectplanning.core.domain.model;
 
+import app.helium.projectplanning.core.domain.request.AddIssueToSprintRequest;
 import app.helium.projectplanning.core.domain.request.CreateSprintRequest;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -11,8 +12,11 @@ import jakarta.persistence.NamedEntityGraph;
 import jakarta.persistence.NamedSubgraph;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import java.time.Clock;
+import java.time.Instant;
 import java.util.LinkedHashSet;
 import java.util.NoSuchElementException;
+import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
 import lombok.AccessLevel;
@@ -26,7 +30,6 @@ import lombok.Setter;
 import org.hibernate.annotations.Immutable;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
-import org.springframework.data.jpa.repository.EntityGraph;
 
 
 @Entity
@@ -97,11 +100,6 @@ public class Project {
         issues.add(issue);
     }
 
-    //TODO: implement after create_sprint feature
-    public void addIssue(Issue issue, UUID sprintId) {
-
-    }
-
     public Sprint createNewSprint(CreateSprintRequest request) {
         Sprint sprint = Sprint.builder()
                 .id(request.getId())
@@ -120,6 +118,23 @@ public class Project {
         return sprint;
     }
 
+    public void addIssueToSprint(AddIssueToSprintRequest request) {
+        Sprint sprintToAddTheIssueIn = getSprintById(request.getSprintId());
+        Issue issue = getIssueById(request.getIssueId());
+        Instant now = request.getNow();
+        Instant sprintDueDate = sprintToAddTheIssueIn.getDueDate();
+
+        if (sprintDueDate != null && sprintDueDate.isBefore(now)) {
+            throw new IllegalStateException("Sprint is closed");
+        }
+
+        sprints.stream()
+                .filter(sprint -> sprint.containsIssue(issue))
+                .findFirst().ifPresent(sprint -> sprint.removeIssue(issue));
+
+        sprintToAddTheIssueIn.addIssue(issue);
+    }
+
     private Sprint getSprintById(UUID id) {
         return sprints.stream()
                 .filter(sprint -> sprint.getId().equals(id))
@@ -131,24 +146,30 @@ public class Project {
         return issueTypes.stream()
                 .filter(issueType -> issueType.getId().equals(id))
                 .findFirst()
-                .orElseThrow(() -> new NoSuchElementException("Issue type with " + id + " not found"));
+                .orElseThrow(
+                        () -> new NoSuchElementException("Issue type with " + id + " not found"));
     }
 
     public IssueStatus getIssueStatusById(UUID id) {
         return issueStatuses.stream()
                 .filter(issueStatus -> issueStatus.getId().equals(id))
                 .findFirst()
-                .orElseThrow(() -> new NoSuchElementException("Status type with " + id + " not found"));
+                .orElseThrow(
+                        () -> new NoSuchElementException("Status type with " + id + " not found"));
     }
 
     public String generateIssueName(long sequence) {
         return key + "-" + sequence;
     }
 
-    private Issue findIssueById(UUID id) {
+    private Issue getIssueById(UUID id) {
         return issues.stream()
                 .filter(issue -> issue.getId().equals(id))
                 .findFirst()
                 .orElseThrow();
+    }
+
+    public boolean isIssueInSprint(UUID issueId, UUID sprintId) {
+        return getSprintById(sprintId).containsIssue(getIssueById(issueId));
     }
 }

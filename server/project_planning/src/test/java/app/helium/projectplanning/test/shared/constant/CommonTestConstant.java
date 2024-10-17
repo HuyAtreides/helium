@@ -7,4 +7,9 @@ public class CommonTestConstant {
     public static final UUID DEFAULT_USER_ID = UUID.fromString("37584e0e-fd12-490e-ad96-6bf9c980f4e6");
     public static final UUID DEFAULT_TEST_PROJECT_ID = UUID.fromString("1d6846ce-0a75-4a39-a49e-dea0d4be8b40");
     public static final Instant FIXED_NOW_INSTANT = Instant.parse("2025-04-11T00:00:00Z");
+    public static final Instant DEFAULT_TEST_START_DATE = Instant.parse("2025-04-11T00:00:00Z");
+    public static final Instant DEFAULT_TEST_END_DATE = Instant.parse("2025-04-27T00:00:00Z");
+    public static final UUID DEFAULT_TEST_SPRINT_ID = UUID.fromString("24f402bb-d5de-4886-b545-2a4cb0361631");
+    public static final UUID DEFAULT_TEST_ISSUE_ID = UUID.fromString("c0d1dde6-49d7-432d-9f99-3744e7ce060e");
+    public static final UUID DEFAULT_TEST_USER_ID = UUID.fromString("bb09b68e-d35c-4faa-a48d-490992c1f8dd");
 }

@@ -97,14 +97,21 @@ public class Sprint implements HasDueDateItem {
     @NotNull
     private UUID creatorId;
 
-    @OneToMany(cascade = CascadeType.PERSIST)
+    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "sprint_id")
     @Default
     @Getter(AccessLevel.PUBLIC)
     private Set<Issue> issues = new LinkedHashSet<>();
 
-    //TODO: implement after create sprint feature
     void addIssue(Issue issue) {
+        issues.add(issue);
+    }
 
+    void removeIssue(Issue issue) {
+        issues.remove(issue);
+    }
+
+    public boolean containsIssue(Issue issue) {
+        return issues.contains(issue);
     }
 }

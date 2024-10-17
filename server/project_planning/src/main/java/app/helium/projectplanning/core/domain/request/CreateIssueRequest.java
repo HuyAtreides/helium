@@ -23,5 +23,6 @@ public class CreateIssueRequest {
     private Project project;
     private UUID creatorId;
     private UUID reporterId;
+    private UUID issueID;
     private UUID assigneeId;
 }

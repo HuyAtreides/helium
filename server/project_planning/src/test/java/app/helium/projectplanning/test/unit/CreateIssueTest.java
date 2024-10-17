@@ -190,6 +190,7 @@ public class CreateIssueTest {
                         named("invalid date range",
                                 CreateIssueRequest
                                         .builder()
+                                        .issueID(UUID.randomUUID())
                                         .project(project)
                                         .issueStatusId(issueStatusId)
                                         .issueTypeId(issueTypeId)
@@ -206,6 +207,7 @@ public class CreateIssueTest {
                         named("due date in the past",
                                 CreateIssueRequest
                                         .builder()
+                                        .issueID(UUID.randomUUID())
                                         .project(project)
                                         .issueStatusId(issueStatusId)
                                         .createdAt(CommonTestConstant.FIXED_NOW_INSTANT)
@@ -222,6 +224,7 @@ public class CreateIssueTest {
                         named("attachment urls contain invalid url",
                                 CreateIssueRequest
                                         .builder()
+                                        .issueID(UUID.randomUUID())
                                         .summary("New Issue")
                                         .issueName("HE-1104")
                                         .project(project)
@@ -240,6 +243,7 @@ public class CreateIssueTest {
                         named("estimate point is negative",
                                 CreateIssueRequest
                                         .builder()
+                                        .issueID(UUID.randomUUID())
                                         .project(project)
                                         .summary("New Issue")
                                         .createdAt(CommonTestConstant.FIXED_NOW_INSTANT)
@@ -255,6 +259,7 @@ public class CreateIssueTest {
                         named("estimate point is zero",
                                 CreateIssueRequest
                                         .builder()
+                                        .issueID(UUID.randomUUID())
                                         .createdAt(CommonTestConstant.FIXED_NOW_INSTANT)
                                         .summary("New Issue")
                                         .issueName("HE-1104")
@@ -270,6 +275,7 @@ public class CreateIssueTest {
                         named("missing summary",
                                 CreateIssueRequest
                                         .builder()
+                                        .issueID(UUID.randomUUID())
                                         .createdAt(CommonTestConstant.FIXED_NOW_INSTANT)
                                         .issueName("HE-1104")
                                         .creatorId(UUID.randomUUID())
@@ -283,6 +289,7 @@ public class CreateIssueTest {
                         named("missing name",
                                 CreateIssueRequest
                                         .builder()
+                                        .issueID(UUID.randomUUID())
                                         .summary("New Issue")
                                         .creatorId(UUID.randomUUID())
                                         .project(project)
@@ -296,10 +303,25 @@ public class CreateIssueTest {
                         named("missing creator id",
                                 CreateIssueRequest
                                         .builder()
+                                        .issueID(UUID.randomUUID())
                                         .createdAt(CommonTestConstant.FIXED_NOW_INSTANT)
                                         .summary("New Issue")
                                         .issueName("HE-1104")
                                         .creatorId(null)
+                                        .project(project)
+                                        .issueStatusId(issueStatusId)
+                                        .issueTypeId(issueTypeId)
+                                        .build()
+                        )
+                ),
+                Arguments.of(
+                        named("missing id",
+                                CreateIssueRequest
+                                        .builder()
+                                        .createdAt(CommonTestConstant.FIXED_NOW_INSTANT)
+                                        .summary("New Issue")
+                                        .issueName("HE-1104")
+                                        .creatorId(UUID.randomUUID())
                                         .project(project)
                                         .issueStatusId(issueStatusId)
                                         .issueTypeId(issueTypeId)
@@ -315,6 +337,7 @@ public class CreateIssueTest {
                         named("has all required fields",
                                 CreateIssueRequest
                                         .builder()
+                                        .issueID(UUID.randomUUID())
                                         .summary("New Issue")
                                         .issueName("HE-1104")
                                         .creatorId(UUID.randomUUID())
@@ -328,6 +351,7 @@ public class CreateIssueTest {
                         named("has valid point estimate",
                                 CreateIssueRequest
                                         .builder()
+                                        .issueID(UUID.randomUUID())
                                         .summary("New Issue")
                                         .issueName("HE-1104")
                                         .creatorId(UUID.randomUUID())
@@ -342,6 +366,7 @@ public class CreateIssueTest {
                         named("has valid date range",
                                 CreateIssueRequest
                                         .builder()
+                                        .issueID(UUID.randomUUID())
                                         .summary("New Issue")
                                         .issueName("HE-1104")
                                         .startDate(Instant.parse("2025-04-11T00:00:00Z"))
@@ -358,6 +383,7 @@ public class CreateIssueTest {
                         named("has valid attachment urls",
                                 CreateIssueRequest
                                         .builder()
+                                        .issueID(UUID.randomUUID())
                                         .summary("New Issue")
                                         .issueName("HE-1104")
                                         .attachmentURLs(List.of(

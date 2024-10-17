@@ -16,5 +16,6 @@ public interface CreateIssueRequestCommandMapper {
     @Mapping(target = "project", source = "project")
     @Mapping(target = "creatorId", source = "creatorId")
     @Mapping(target = "createdAt", source = "now")
+    @Mapping(target = "issueID", expression = "java(UUID.randomUUID())")
     CreateIssueRequest mapToCreateIssueRequest(CreateIssueCommand command, UUID creatorId, String issueName, Project project, Instant now);
 }
