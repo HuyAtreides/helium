@@ -72,7 +72,7 @@ public class ProjectPlanningService {
     }
 
     @Transactional(isolation = Isolation.REPEATABLE_READ)
-    public void createIssueWithinSprint(CreateIssueWithinSprintCommand command) {
+    public Issue createIssueWithinSprint(CreateIssueWithinSprintCommand command) {
         Issue issue = createIssue(command);
         addIssueToSprint(
                 AddIssueToSprintCommand.builder()
@@ -81,6 +81,8 @@ public class ProjectPlanningService {
                         .sprintId(command.getSprintId())
                         .build()
         );
+
+        return issue;
     }
 
     @Transactional(isolation = Isolation.REPEATABLE_READ)

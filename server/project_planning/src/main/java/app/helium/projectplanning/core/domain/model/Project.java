@@ -49,8 +49,13 @@ import org.hibernate.type.SqlTypes;
                 @NamedAttributeNode("status")
         })
 })
-@NamedEntityGraph(name = "project(sprints)", attributeNodes = {
-        @NamedAttributeNode("sprints")
+@NamedEntityGraph(name = "project(sprints, issues)", attributeNodes = {
+        @NamedAttributeNode(value = "sprints", subgraph = "sprint(issues)"),
+        @NamedAttributeNode("issues")
+}, subgraphs = {
+        @NamedSubgraph(name = "sprint(issues)", attributeNodes = {
+                @NamedAttributeNode("issues")
+        })
 })
 @Immutable
 public class Project {

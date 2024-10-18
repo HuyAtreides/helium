@@ -1,7 +1,9 @@
 package app.helium.projectplanning.infra.repository;
 
 import app.helium.projectplanning.core.domain.model.Project;
+import java.util.Optional;
 import java.util.UUID;
+import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
@@ -13,4 +15,8 @@ public interface ProjectRepository extends CrudRepository<Project, UUID> {
             select nextval('project_planning.issue_sequence')
             """)
     long getNextSequence();
+
+    @Override
+    @EntityGraph("project(sprints, issues)")
+    Optional<Project> findById(UUID uuid);
 }
