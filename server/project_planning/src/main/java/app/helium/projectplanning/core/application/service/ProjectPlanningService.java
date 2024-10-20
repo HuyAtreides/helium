@@ -58,13 +58,13 @@ public class ProjectPlanningService {
                 project, now);
         Issue issue = issueFactory.createIssue(request);
         project.addIssue(issue);
-        projectRepository.save(project);
 
-        return issue;
+        return projectRepository.save(project).getIssueById(issue.getId());
     }
 
     @Transactional
     public void addIssueToSprint(AddIssueToSprintCommand command) {
+        log.info("message = add an issue to sprint, request = {}", command);
         Project project = findProject(command.getProjectId());
         Instant now = dateTimeService.getCurrentInstant();
         AddIssueToSprintRequest request = addIssueToSprintRequestMapper.mapToRequest(command, now);

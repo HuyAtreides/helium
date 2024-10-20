@@ -105,6 +105,7 @@ public class Sprint implements HasDueDateItem {
 
     void addIssue(Issue issue) {
         issues.add(issue);
+        issue.setSprintId(this.id);
     }
 
     void removeIssue(Issue issue) {

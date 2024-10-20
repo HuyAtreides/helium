@@ -124,6 +124,7 @@ public abstract class Issue implements HasDueDateItem {
 
     @Column(name = "sprint_id")
     @JdbcTypeCode(SqlTypes.UUID)
+    @Getter(AccessLevel.PUBLIC)
     private UUID sprintId;
 
     @ManyToOne

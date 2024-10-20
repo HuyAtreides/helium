@@ -12,11 +12,9 @@ import jakarta.persistence.NamedEntityGraph;
 import jakarta.persistence.NamedSubgraph;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
-import java.time.Clock;
 import java.time.Instant;
 import java.util.LinkedHashSet;
 import java.util.NoSuchElementException;
-import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
 import lombok.AccessLevel;
@@ -30,6 +28,8 @@ import lombok.Setter;
 import org.hibernate.annotations.Immutable;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 
 @Entity
@@ -167,7 +167,7 @@ public class Project {
         return key + "-" + sequence;
     }
 
-    private Issue getIssueById(UUID id) {
+    public Issue getIssueById(UUID id) {
         return issues.stream()
                 .filter(issue -> issue.getId().equals(id))
                 .findFirst()

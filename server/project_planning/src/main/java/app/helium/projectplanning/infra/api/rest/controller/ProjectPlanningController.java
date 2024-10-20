@@ -1,5 +1,6 @@
 package app.helium.projectplanning.infra.api.rest.controller;
 
+import app.helium.projectplanning.core.application.command.AddIssueToSprintCommand;
 import app.helium.projectplanning.core.application.service.ProjectPlanningService;
 import app.helium.projectplanning.core.domain.model.Issue;
 import app.helium.projectplanning.core.domain.model.Sprint;
@@ -16,6 +17,7 @@ import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import org.mapstruct.factory.Mappers;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -25,11 +27,16 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequiredArgsConstructor
 public class ProjectPlanningController {
+
     private final ProjectPlanningService projectPlanningService;
-    private final CreateIssuePayloadMapper mapper = Mappers.getMapper(CreateIssuePayloadMapper.class);
-    private final IssuePayloadMapper issuePayloadMapper = Mappers.getMapper(IssuePayloadMapper.class);
-    private final SprintPayloadMapper sprintPayloadMapper = Mappers.getMapper(SprintPayloadMapper.class);
-    private final CreateSprintPayloadMapper createSprintPayloadMapper = Mappers.getMapper(CreateSprintPayloadMapper.class);
+    private final CreateIssuePayloadMapper mapper = Mappers.getMapper(
+            CreateIssuePayloadMapper.class);
+    private final IssuePayloadMapper issuePayloadMapper = Mappers.getMapper(
+            IssuePayloadMapper.class);
+    private final SprintPayloadMapper sprintPayloadMapper = Mappers.getMapper(
+            SprintPayloadMapper.class);
+    private final CreateSprintPayloadMapper createSprintPayloadMapper = Mappers.getMapper(
+            CreateSprintPayloadMapper.class);
 
     @PostMapping(ApiEndPoint.CREATE_NEW_ISSUE)
     @ResponseStatus(HttpStatus.CREATED)
@@ -42,13 +49,44 @@ public class ProjectPlanningController {
         return issuePayloadMapper.fromIssueModel(issue);
     }
 
+    @PostMapping(ApiEndPoint.CREATE_NEW_ISSUE_WITHIN_SPRINT)
+    @ResponseStatus(HttpStatus.CREATED)
+    public IssuePayload createIssueWithinSprint(
+            @PathVariable(name = "project_id") UUID projectId,
+            @PathVariable(name = "sprint_id") UUID sprintId,
+            @RequestBody CreateIssuePayload payload
+    ) {
+        Issue issue = projectPlanningService.createIssueWithinSprint(
+                mapper.toCommand(payload, projectId, sprintId)
+        );
+
+        return issuePayloadMapper.fromIssueModel(issue);
+    }
+
+    @PatchMapping(ApiEndPoint.ADD_ISSUE_TO_SPRINT)
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void addIssueToSprint(
+            @PathVariable(name = "project_id") UUID projectId,
+            @PathVariable(name = "sprint_id") UUID sprintId,
+            @PathVariable(name = "issue_id") UUID issueId
+    ) {
+        projectPlanningService.addIssueToSprint(
+                AddIssueToSprintCommand.builder()
+                        .projectId(projectId)
+                        .sprintId(sprintId)
+                        .issueId(issueId)
+                        .build()
+        );
+    }
+
     @PostMapping(ApiEndPoint.CREATE_NEW_SPRINT)
     @ResponseStatus(HttpStatus.CREATED)
     public SprintPayload createSprint(
             @PathVariable(name = "project_id") UUID projectId,
             @RequestBody CreateSprintPayload payload
     ) {
-        Sprint sprint = projectPlanningService.createSprint(createSprintPayloadMapper.toCommand(payload, projectId));
+        Sprint sprint = projectPlanningService.createSprint(
+                createSprintPayloadMapper.toCommand(payload, projectId));
 
         return sprintPayloadMapper.mapToSprintPayload(sprint);
     }

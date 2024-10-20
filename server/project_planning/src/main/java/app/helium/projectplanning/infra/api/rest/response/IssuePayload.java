@@ -20,6 +20,7 @@ public class IssuePayload {
     private UUID lastUpdatedById;
     private Integer pointEstimate;
     private UUID assigneeId;
+    private UUID sprintId;
     private UUID reporterId;
     private UUID projectId;
     private UUID creatorId;
