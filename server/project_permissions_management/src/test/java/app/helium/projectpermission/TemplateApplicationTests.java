@@ -1,4 +1,4 @@
-package app.helium.projectaccess;
+package app.helium.projectpermission;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
