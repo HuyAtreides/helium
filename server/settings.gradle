@@ -22,3 +22,4 @@ rootProject.name = 'helium'
 
 include('project_planning')
 include('project_management')
+include('project_access')
