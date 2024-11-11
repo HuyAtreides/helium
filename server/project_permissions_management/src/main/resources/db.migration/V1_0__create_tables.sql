@@ -13,6 +13,7 @@ create table project_member (
 create table role (
   id uuid primary key,
   name varchar(500),
+  label varchar(700) not null,
   description varchar(5000),
   created_at timestamp default (now() at time zone 'utc'),
   last_updated_at timestamp default (now() at time zone 'utc'),
@@ -30,7 +31,8 @@ create table project_member_role (
 
 create table permission (
   id uuid primary key,
-  name varchar(500),
+  name varchar(500) not null,
+  label varchar(700) not null,
   description varchar(5000),
   created_at timestamp default (now() at time zone 'utc'),
   last_updated_at timestamp default (now() at time zone 'utc'),
